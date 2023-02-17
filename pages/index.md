@@ -13,7 +13,13 @@ This is a full-featured boilerplate for a creating a documentation website using
 
 First, clone this repo and install the dependencies required:
 
-```bash
+```bash {% lineNumbers="1,3-4" %}
+npm install
+# or
+yarn install
+npm install
+# or
+yarn install
 npm install
 # or
 yarn install

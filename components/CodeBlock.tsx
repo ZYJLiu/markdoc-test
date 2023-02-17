@@ -1,35 +1,76 @@
-import Prism from 'prismjs';
+import Prism from "prismjs"
+import copy from "copy-to-clipboard"
+import * as React from "react"
+import "prismjs/plugins/line-numbers/prism-line-numbers.js"
+import "prismjs/plugins/line-numbers/prism-line-numbers.css"
+import "prismjs/plugins/line-highlight/prism-line-highlight.js"
+import "prismjs/plugins/line-highlight/prism-line-highlight.css"
 
-import * as React from 'react';
+export function CodeBlock({
+  children,
+  "data-language": language,
+  lineNumbers = "",
+}) {
+  console.log("test", lineNumbers)
 
-export function CodeBlock({children, 'data-language': language}) {
-  const ref = React.useRef(null);
+  const [copied, setCopied] = React.useState(false)
+
+  const ref = React.useRef(null)
 
   React.useEffect(() => {
-    if (ref.current) Prism.highlightElement(ref.current, false);
-  }, [children]);
+    if (ref.current) Prism.highlightElement(ref.current, false)
+  }, [children])
 
+  React.useEffect(() => {
+    if (copied) {
+      copy(ref.current.innerText)
+      const to = setTimeout(setCopied, 1000, false)
+      return () => clearTimeout(to)
+    }
+  }, [copied])
+
+  const lines =
+    typeof children === "string" ? children.split("\n").filter(Boolean) : []
+
+  const dataLine =
+    typeof window === "undefined"
+      ? `data-line="${lineNumbers}"`
+      : "data-line=''"
   return (
     <div className="code" aria-live="polite">
       <pre
-        ref={ref}
-        className={`language-${language}`}
+        className={`language-${language} line-numbers`}
+        // data-line causes nextjs hydration error
+        // data-line={lineNumbers}
       >
-        {children}
+        <code ref={ref}>{children}</code>
       </pre>
+      <button onClick={() => setCopied(true)}>
+        <span>{copied ? "Copied!" : "Copy"}</span>
+      </button>
       <style jsx>
         {`
           .code {
             position: relative;
           }
-
+          .code button {
+            appearance: none;
+            position: absolute;
+            color: inherit;
+            background: var(--code-background);
+            top: ${lines.length === 1 ? "17px" : "13px"};
+            right: 11px;
+            border-radius: 4px;
+            border: none;
+            font-size: 15px;
+          }
           /* Override Prism styles */
-          .code :global(pre[class*='language-']) {
+          .code :global(pre[class*="language-"]) {
             text-shadow: none;
             border-radius: 4px;
           }
         `}
       </style>
     </div>
-  );
+  )
 }

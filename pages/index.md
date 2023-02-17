@@ -5,6 +5,10 @@ description: How to get started with Markdoc
 
 # Full Next.js example
 
+{% side-by-side %}
+
+Content on Side
+
 {% tabs %}
 
 {% tab label="Tab One" %}
@@ -30,8 +34,9 @@ yarn dev
 {% tab label="Tab Three" %}
 
 Test
-
 {% /tab %}
+
+{% /side-by-side %}
 
 {% /tabs %}
 

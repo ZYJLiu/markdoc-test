@@ -5,6 +5,36 @@ description: How to get started with Markdoc
 
 # Full Next.js example
 
+{% tabs %}
+
+{% tab label="Tab One" %}
+
+```bash
+yarn dev
+# and
+npm run dev
+```
+
+{% /tab %}
+
+{% tab label="Tab Two" %}
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+{% /tab %}
+
+{% tab label="Tab Three" %}
+
+Test
+
+{% /tab %}
+
+{% /tabs %}
+
 {% callout %}
 This is a full-featured boilerplate for a creating a documentation website using Markdoc and Next.js.
 {% /callout %}
@@ -14,6 +44,15 @@ This is a full-featured boilerplate for a creating a documentation website using
 First, clone this repo and install the dependencies required:
 
 ```bash {% lineNumbers="1,3-4" %}
+npm install
+# or
+yarn install
+npm install
+# or
+yarn install
+npm install
+# or
+yarn install
 npm install
 # or
 yarn install

@@ -11,8 +11,6 @@ export function CodeBlock({
   "data-language": language,
   lineNumbers = "",
 }) {
-  console.log("test", lineNumbers)
-
   const [copied, setCopied] = React.useState(false)
 
   const ref = React.useRef(null)
@@ -42,6 +40,7 @@ export function CodeBlock({
         className={`language-${language} line-numbers`}
         // data-line causes nextjs hydration error
         // data-line={lineNumbers}
+        style={{ maxHeight: "15em", overflowY: "auto" }}
       >
         <code ref={ref}>{children}</code>
       </pre>
@@ -59,7 +58,7 @@ export function CodeBlock({
             color: inherit;
             background: var(--code-background);
             top: ${lines.length === 1 ? "17px" : "13px"};
-            right: 11px;
+            right: 20px;
             border-radius: 4px;
             border: none;
             font-size: 15px;
